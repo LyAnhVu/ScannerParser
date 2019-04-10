@@ -8,16 +8,6 @@ import org.antlr.v4.runtime.tree.ParseTreeListener;
  */
 public interface SimpleCodeListener extends ParseTreeListener {
 	/**
-	 * Enter a parse tree produced by {@link SimpleCodeParser#scanner}.
-	 * @param ctx the parse tree
-	 */
-	void enterScanner(@NotNull SimpleCodeParser.ScannerContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link SimpleCodeParser#scanner}.
-	 * @param ctx the parse tree
-	 */
-	void exitScanner(@NotNull SimpleCodeParser.ScannerContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link SimpleCodeParser#program}.
 	 * @param ctx the parse tree
 	 */

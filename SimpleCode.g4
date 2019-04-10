@@ -2,12 +2,8 @@ grammar SimpleCode;
 program
 	: CLASS PROGRAM '{' Field_decl* Method_decl* '}'
 	;
-	
-scanner
-	: Literal 
-	| Id
-	;
-	
+
+
 //
 //	KEYWORDS
 //
@@ -27,12 +23,12 @@ VOID : 'void';
 PROGRAM : 'Program'; 
 	
 Field_decl
-	: Type ( Id | Id '[' Int_literal ']' )+','
+	: Type ( IDENTIFIER | IDENTIFIER '[' INTLITERAL ']' )+','
 	;
 	
 
 Method_decl
-	: (Type | VOID) Id '(' [(Type Id)+','] ')' Block
+	: (Type | VOID) IDENTIFIER '(' [(Type IDENTIFIER)+','] ')' Block
 	;
 
 
@@ -42,7 +38,7 @@ Block
 
 	
 Var_decl
-	: Type Id+','
+	: Type IDENTIFIER+','
 	;
 
 	
@@ -56,7 +52,7 @@ Statement
 	: Location Assign_op Expr
 	| Method_call
 	| IF '(' Expr ')' Block [ELSE Block]
-	| FOR (Id) '=' Expr ',' Expr Block
+	| FOR (IDENTIFIER) '=' Expr ',' Expr Block
 	| RETURN [Expr]
 	| BREAK
 	| CONTINUE
@@ -73,18 +69,18 @@ Assign_op
 	
 Method_call
 	: Method_name ([Expr+','])
-	| CALLOUT (String_literal [',' Callout_arg+','])
+	| CALLOUT (STRINGLITERAL [',' Callout_arg+','])
 	;
 
 	
 Method_name
-	: Id
+	: IDENTIFIER
 	;
 	
 
 Location
-	: Id
-	| Id '[' Expr ']'
+	: IDENTIFIER
+	| IDENTIFIER '[' Expr ']'
 	;
 
 	
@@ -101,7 +97,7 @@ Expr
 	
 Callout_arg
 	: Expr
-	| String_literal
+	| STRINGLITERAL
 	;
 	
 	
@@ -134,14 +130,14 @@ Cond_op
 	
 	
 Literal
-	: Int_literal
-	| Char_literal
-	| Bool_literal
-	| String_literal
+	: INTLITERAL
+	| CHARLITERAL
+	| BOOLEANLITERAL
+	| STRINGLITERAL
 	;
 
 	
-Id
+IDENTIFIER
 	:	Alpha Alpha_num*
 	;
 
@@ -169,7 +165,7 @@ Hex_digit
 	;
 
 
-Int_literal
+INTLITERAL
 	: Decimal_literal
 	| Hex_literal
 	;
@@ -185,17 +181,17 @@ Hex_literal
 	;
 	
 	
-Bool_literal
+BOOLEANLITERAL
 	: TRUE | FALSE
 	;
 
 	
-Char_literal
+CHARLITERAL
 	: '\'' Char '\''
 	;
 
 	
-String_literal
+STRINGLITERAL
 	: '"' Char* '"'
 	;
 	

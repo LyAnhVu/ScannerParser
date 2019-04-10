@@ -16,18 +16,6 @@ public class SimpleCodeBaseListener implements SimpleCodeListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterScanner(@NotNull SimpleCodeParser.ScannerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitScanner(@NotNull SimpleCodeParser.ScannerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterProgram(@NotNull SimpleCodeParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}

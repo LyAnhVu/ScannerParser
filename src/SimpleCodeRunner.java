@@ -5,9 +5,57 @@ import java.nio.file.Paths;
 
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ErrorNodeImpl;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNodeImpl;
 
 public class SimpleCodeRunner {
+	private static String[] filterList = {"IDENTIFIER","INTLITERAL","CHARLITERAL","STRINGLITERAL","BOOLEANLITERAL"};
+	
+	private static boolean checkExistInFilterList(String str)
+	{
+		for(int i=0; i<filterList.length; i++)
+		{
+			if(filterList[i].equals(str))
+				return true;
+		}
+		return false;
+	}
+	
+	public static void printOutChildNode(TerminalNodeImpl child, SimpleCodeLexer lexers)
+	{
+		
+		int line = child.getSymbol().getLine();
+		String lexer = child.getText();
+		String token = lexers.getRuleNames()[child.getSymbol().getType() - 1];
+		
+		if(checkExistInFilterList(token)) {
+			System.out.println(line + " " + token + " " + lexer);
+		}
+		else {
+			System.out.println(line + " " + lexer);
+		}
+				
+	}
+	
+	public static void flattenTree(ParseTree parent, SimpleCodeLexer lexers)
+	{
+		for(int i=0; i<parent.getChildCount();i++)
+		{
+			ParseTree child = parent.getChild(i);
+			if(!(child instanceof ErrorNodeImpl)) {
+				if((child instanceof TerminalNodeImpl) && (child.getText().trim().equals(""))) {
+					printOutChildNode((TerminalNodeImpl)(child), lexers);
+				}
+				else {
+					flattenTree(child, lexers);
+				}
+			}
+			else {
+				printOutChildNode((TerminalNodeImpl)(child), lexers);
+			}
+		}
+	}
 
 	public static void main(String[] args) throws Exception {
 		
@@ -26,7 +74,7 @@ public class SimpleCodeRunner {
 		// === READ FILE
 		StringBuilder sb = new StringBuilder();
 
-        try (BufferedReader br = Files.newBufferedReader(Paths.get("D:\\Desktop\\parser\\illegal-01"))) {
+        try (BufferedReader br = Files.newBufferedReader(Paths.get("D:\\Desktop\\scanner\\char1"))) {
 
             // read line by line
             String line;
@@ -45,15 +93,17 @@ public class SimpleCodeRunner {
         System.out.print(input);
         System.out.println("\n");
 		
-		SimpleCodeLexer lexer = new SimpleCodeLexer(input);
-		
+		SimpleCodeLexer lexer = new SimpleCodeLexer(input);	
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
-		
 		SimpleCodeParser parser = new SimpleCodeParser(tokens);
 		
 		ParseTree tree = parser.program();
 		System.out.println("\n-------------------------");
-		System.out.println(tree.toStringTree(parser));
+
+		flattenTree(tree, lexer);
+	
+		
+		//System.out.println(tree.toStringTree(parser));
 	}
 
 }

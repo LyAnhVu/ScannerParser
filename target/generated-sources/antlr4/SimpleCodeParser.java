@@ -20,9 +20,9 @@ public class SimpleCodeParser extends Parser {
 		FALSE=9, FOR=10, IF=11, INT=12, RETURN=13, TRUE=14, VOID=15, PROGRAM=16, 
 		Field_decl=17, Method_decl=18, Block=19, Var_decl=20, Type=21, Statement=22, 
 		Assign_op=23, Method_call=24, Method_name=25, Location=26, Expr=27, Callout_arg=28, 
-		Bin_op=29, Arith_op=30, Rel_op=31, Eq_op=32, Cond_op=33, Literal=34, Id=35, 
-		Alpha_num=36, Alpha=37, Digit=38, Hex_digit=39, Int_literal=40, Decimal_literal=41, 
-		Hex_literal=42, Bool_literal=43, Char_literal=44, String_literal=45, WS=46, 
+		Bin_op=29, Arith_op=30, Rel_op=31, Eq_op=32, Cond_op=33, Literal=34, IDENTIFIER=35, 
+		Alpha_num=36, Alpha=37, Digit=38, Hex_digit=39, INTLITERAL=40, Decimal_literal=41, 
+		Hex_literal=42, BOOLEANLITERAL=43, CHARLITERAL=44, STRINGLITERAL=45, WS=46, 
 		COMMENT=47, LINE_COMMENT=48, Char=49;
 	public static final String[] tokenNames = {
 		"<INVALID>", "'{'", "'}'", "'boolean'", "'break'", "'callout'", "'class'", 
@@ -30,14 +30,14 @@ public class SimpleCodeParser extends Parser {
 		"'true'", "'void'", "'Program'", "Field_decl", "Method_decl", "Block", 
 		"Var_decl", "Type", "Statement", "Assign_op", "Method_call", "Method_name", 
 		"Location", "Expr", "Callout_arg", "Bin_op", "Arith_op", "Rel_op", "Eq_op", 
-		"Cond_op", "Literal", "Id", "Alpha_num", "Alpha", "Digit", "Hex_digit", 
-		"Int_literal", "Decimal_literal", "Hex_literal", "Bool_literal", "Char_literal", 
-		"String_literal", "WS", "COMMENT", "LINE_COMMENT", "Char"
+		"Cond_op", "Literal", "IDENTIFIER", "Alpha_num", "Alpha", "Digit", "Hex_digit", 
+		"INTLITERAL", "Decimal_literal", "Hex_literal", "BOOLEANLITERAL", "CHARLITERAL", 
+		"STRINGLITERAL", "WS", "COMMENT", "LINE_COMMENT", "Char"
 	};
 	public static final int
-		RULE_program = 0, RULE_scanner = 1;
+		RULE_program = 0;
 	public static final String[] ruleNames = {
-		"program", "scanner"
+		"program"
 	};
 
 	@Override
@@ -91,79 +91,36 @@ public class SimpleCodeParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(4); match(CLASS);
-			setState(5); match(PROGRAM);
-			setState(6); match(T__1);
-			setState(10);
+			setState(2); match(CLASS);
+			setState(3); match(PROGRAM);
+			setState(4); match(T__1);
+			setState(8);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==Field_decl) {
 				{
 				{
-				setState(7); match(Field_decl);
+				setState(5); match(Field_decl);
 				}
 				}
-				setState(12);
+				setState(10);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(16);
+			setState(14);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==Method_decl) {
 				{
 				{
-				setState(13); match(Method_decl);
+				setState(11); match(Method_decl);
 				}
 				}
-				setState(18);
+				setState(16);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(19); match(T__0);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	public static class ScannerContext extends ParserRuleContext {
-		public TerminalNode Id() { return getToken(SimpleCodeParser.Id, 0); }
-		public TerminalNode Literal() { return getToken(SimpleCodeParser.Literal, 0); }
-		public ScannerContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_scanner; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof SimpleCodeListener ) ((SimpleCodeListener)listener).enterScanner(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof SimpleCodeListener ) ((SimpleCodeListener)listener).exitScanner(this);
-		}
-	}
-
-	public final ScannerContext scanner() throws RecognitionException {
-		ScannerContext _localctx = new ScannerContext(_ctx, getState());
-		enterRule(_localctx, 2, RULE_scanner);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(21);
-			_la = _input.LA(1);
-			if ( !(_la==Literal || _la==Id) ) {
-			_errHandler.recoverInline(this);
-			}
-			consume();
+			setState(17); match(T__0);
 			}
 		}
 		catch (RecognitionException re) {
@@ -178,14 +135,13 @@ public class SimpleCodeParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\63\32\4\2\t\2\4\3"+
-		"\t\3\3\2\3\2\3\2\3\2\7\2\13\n\2\f\2\16\2\16\13\2\3\2\7\2\21\n\2\f\2\16"+
-		"\2\24\13\2\3\2\3\2\3\3\3\3\3\3\2\2\4\2\4\2\3\3\2$%\31\2\6\3\2\2\2\4\27"+
-		"\3\2\2\2\6\7\7\b\2\2\7\b\7\22\2\2\b\f\7\3\2\2\t\13\7\23\2\2\n\t\3\2\2"+
-		"\2\13\16\3\2\2\2\f\n\3\2\2\2\f\r\3\2\2\2\r\22\3\2\2\2\16\f\3\2\2\2\17"+
-		"\21\7\24\2\2\20\17\3\2\2\2\21\24\3\2\2\2\22\20\3\2\2\2\22\23\3\2\2\2\23"+
-		"\25\3\2\2\2\24\22\3\2\2\2\25\26\7\4\2\2\26\3\3\2\2\2\27\30\t\2\2\2\30"+
-		"\5\3\2\2\2\4\f\22";
+		"\3\u0430\ud6d1\u8206\uad2d\u4417\uaef1\u8d80\uaadd\3\63\26\4\2\t\2\3\2"+
+		"\3\2\3\2\3\2\7\2\t\n\2\f\2\16\2\f\13\2\3\2\7\2\17\n\2\f\2\16\2\22\13\2"+
+		"\3\2\3\2\3\2\2\2\3\2\2\2\26\2\4\3\2\2\2\4\5\7\b\2\2\5\6\7\22\2\2\6\n\7"+
+		"\3\2\2\7\t\7\23\2\2\b\7\3\2\2\2\t\f\3\2\2\2\n\b\3\2\2\2\n\13\3\2\2\2\13"+
+		"\20\3\2\2\2\f\n\3\2\2\2\r\17\7\24\2\2\16\r\3\2\2\2\17\22\3\2\2\2\20\16"+
+		"\3\2\2\2\20\21\3\2\2\2\21\23\3\2\2\2\22\20\3\2\2\2\23\24\7\4\2\2\24\3"+
+		"\3\2\2\2\4\n\20";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
